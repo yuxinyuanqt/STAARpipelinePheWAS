@@ -1,0 +1,14 @@
+exportPattern("^[[:alpha:]]+")
+import(STAAR, MultiSTAAR, STAARpipeline, dplyr, SeqArray, TxDb.Hsapiens.UCSC.hg38.knownGene, Matrix)
+importFrom("SeqVarTools", "isSNV")
+importFrom("GenomicFeatures", "genes", "promoters")
+importFrom("methods", "as")
+
+# functions
+export(Individual_Analysis_PheWAS,
+       Gene_Centric_Coding_PheWAS,
+       Gene_Centric_Noncoding_PheWAS,
+       ncRNA_PheWAS,
+       Sliding_Window_PheWAS,
+	   Missing_num.sp,MultiSTAAR_sp,
+	   Genotype_sp_extraction)
