@@ -103,6 +103,8 @@ missense_PheWAS <- function(chr,gene_name,genofile,obj_nullmodel_list,genes,
 	AF_AC_Missing <- seqGetAF_AC_Missing(genofile,minor=FALSE,parallel=FALSE)
 	REF_AF <- AF_AC_Missing$af
 	Missing_rate <- AF_AC_Missing$miss
+	## variant id
+	variant.id.gene <- seqGetData(genofile, "variant.id")
 	variant_maf_cutoff_filter <- ifelse(rare_maf_cutoff<=0.01,0.05,1)
 	seqResetFilter(genofile)
 	
@@ -196,6 +198,9 @@ missense_PheWAS <- function(chr,gene_name,genofile,obj_nullmodel_list,genes,
 	      results_list[[num]] <- results
 	    }
 	  }
+	} else
+	{
+	  return(results_list)
 	}
 
 	############################################################
@@ -262,6 +267,8 @@ missense_PheWAS <- function(chr,gene_name,genofile,obj_nullmodel_list,genes,
 	  AF_AC_Missing <- seqGetAF_AC_Missing(genofile,minor=FALSE,parallel=FALSE)
 	  REF_AF <- AF_AC_Missing$af
 	  Missing_rate <- AF_AC_Missing$miss
+	  ## variant id
+	  variant.id.gene <- seqGetData(genofile, "variant.id")
 	  variant_maf_cutoff_filter <- ifelse(rare_maf_cutoff<=0.01,0.05,1)
 	  seqResetFilter(genofile)
 	  
@@ -284,6 +291,7 @@ missense_PheWAS <- function(chr,gene_name,genofile,obj_nullmodel_list,genes,
 		id.phenotype.num <- as.character(obj_nullmodel_list[[num]]$id_include)
 		id.phenotype.num.merge <- data.frame(id.phenotype.num)
 		id.phenotype.num.merge <- dplyr::left_join(id.phenotype.num.merge,phenotype.id.merge,by = c("id.phenotype.num" = "phenotype.id"))
+		phenotype.id.match <- id.phenotype.num.merge$index
 		samplesize.num <- length(phenotype.id.match)
 		
 		if(!is.null(Geno) & inherits(Geno, "dgCMatrix"))

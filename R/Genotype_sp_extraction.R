@@ -126,19 +126,26 @@ Genotype_sp_extraction <- function(genofile,variant.id,sample.id,
       position.dosage <- as.numeric(seqGetData(genofile, "position"))
       REF.dosage <- as.character(seqGetData(genofile, "$ref"))
       ALT.dosage <- as.character(seqGetData(genofile, "$alt"))
+      variant.id.in.dosage <- seqGetData(genofile, "variant.id")
       
       results_dosage_temp <- data.frame(CHR=CHR.dosage,position=position.dosage,
-                                        REF=REF.dosage,ALT=ALT.dosage)
+                                        REF=REF.dosage,ALT=ALT.dosage,
+                                        variant.id=variant.id.in.dosage)
       results_dosage <- rbind(results_dosage,results_dosage_temp)
       
       seqResetFilter(genofile)
     }
     
     annotation_phred.sub_dosage <- annotation_phred.sub[is.dosge,,drop=FALSE]
-    results_dosage <- cbind(results_dosage,MAF=MAF.in.dosage,
-                            ALT_AF=ALT_AF.in.dosage,
-                            Missing_rate=Missing_rate.in.dosage,
-                            variant.id=variant.id.dosage)
+    ## Reorder
+    variant_order.dosage <- match(results_dosage$variant.id, variant.id.dosage)
+    annotation_phred.sub_dosage <- annotation_phred.sub_dosage[variant_order.dosage,,drop=FALSE]
+    results_dosage <- dplyr::left_join(results_dosage,
+                                       data.frame(MAF=MAF.in.dosage,
+                                                  ALT_AF=ALT_AF.in.dosage,
+                                                  Missing_rate=Missing_rate.in.dosage,
+                                                  variant.id=variant.id.dosage),
+                                       by="variant.id")
     Geno <- Geno_dosage
     results_info <- results_dosage
     annotation_phred.sub_sort <- annotation_phred.sub_dosage
@@ -188,19 +195,26 @@ Genotype_sp_extraction <- function(genofile,variant.id,sample.id,
       position.dosage_alt <- as.numeric(seqGetData(genofile, "position"))
       REF.dosage_alt <- as.character(seqGetData(genofile, "$ref"))
       ALT.dosage_alt <- as.character(seqGetData(genofile, "$alt"))
+      variant.id.in.dosage_alt <- seqGetData(genofile, "variant.id")
       
       results_dosage_alt_temp <- data.frame(CHR=CHR.dosage_alt,position=position.dosage_alt,
-                                            REF=REF.dosage_alt,ALT=ALT.dosage_alt)
+                                            REF=REF.dosage_alt,ALT=ALT.dosage_alt,
+                                            variant.id=variant.id.in.dosage_alt)
       results_dosage_alt <- rbind(results_dosage_alt,results_dosage_alt_temp)
       
       seqResetFilter(genofile)
     }
     
     annotation_phred.sub_alt <- annotation_phred.sub[is.dosge_alt,,drop=FALSE]
-    results_dosage_alt <- cbind(results_dosage_alt,MAF=MAF.in.dosage_alt,
-                                ALT_AF=ALT_AF.in.dosage_alt,
-                                Missing_rate=Missing_rate.in.dosage_alt,
-                                variant.id=variant.id.dosage_alt)
+    ## Reorder
+    variant_order.dosage_alt <- match(results_dosage_alt$variant.id, variant.id.dosage_alt)
+    annotation_phred.sub_alt <- annotation_phred.sub_alt[variant_order.dosage_alt,,drop=FALSE]
+    results_dosage_alt <- dplyr::left_join(results_dosage_alt,
+                                           data.frame(MAF=MAF.in.dosage_alt,
+                                                      ALT_AF=ALT_AF.in.dosage_alt,
+                                                      Missing_rate=Missing_rate.in.dosage_alt,
+                                                      variant.id=variant.id.dosage_alt),
+                                           by="variant.id")
     
     if(sum(is.dosge)>=1)
     {
@@ -244,13 +258,22 @@ Genotype_sp_extraction <- function(genofile,variant.id,sample.id,
     position.dosage_sp <- as.numeric(seqGetData(genofile, "position"))
     REF.dosage_sp <- as.character(seqGetData(genofile, "$ref"))
     ALT.dosage_sp <- as.character(seqGetData(genofile, "$alt"))
+    variant.id.in.dosage_sp <- seqGetData(genofile, "variant.id")
     
     annotation_phred.sub_sp <- annotation_phred.sub[is.dosge_sp,,drop=FALSE]
     results_dosage_sp <- data.frame(CHR=CHR.dosage_sp,position=position.dosage_sp,
                                     REF=REF.dosage_sp,ALT=ALT.dosage_sp,
-                                    MAF=MAF.in.dosage_sp,ALT_AF=ALT_AF.in.dosage_sp,
-                                    Missing_rate=Missing_rate.in.dosage_sp,
-                                    variant.id=variant.id.dosage_sp)
+                                    variant.id=variant.id.in.dosage_sp)
+    
+    ## Reorder
+    variant_order.dosage_sp <- match(results_dosage_sp$variant.id, variant.id.dosage_sp)
+    annotation_phred.sub_sp <- annotation_phred.sub_sp[variant_order.dosage_sp,,drop=FALSE]
+    results_dosage_sp <- dplyr::left_join(results_dosage_sp,
+                                           data.frame(MAF=MAF.in.dosage_sp,
+                                                      ALT_AF=ALT_AF.in.dosage_sp,
+                                                      Missing_rate=Missing_rate.in.dosage_sp,
+                                                      variant.id=variant.id.dosage_sp),
+                                           by="variant.id")
     
     seqResetFilter(genofile)
     
