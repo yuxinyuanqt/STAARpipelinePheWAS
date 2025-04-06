@@ -43,7 +43,7 @@ Genotype_sp_extraction <- function(genofile,variant.id,sample.id,
                                    REF_AF,rare_maf_cutoff=0.01,
                                    variant_maf_cutoff_filter=1,
                                    Missing_rate,Missing_cutoff=0.01,
-                                   subset_variants_num=2e3,
+                                   subset_variants_num=1e3,
                                    rv_num_cutoff_max_prefilter=1e9,
                                    annotation_phred=NULL)
 {

@@ -415,7 +415,7 @@ Individual_Analysis_PheWAS <- function(chr,start_loc,end_loc,genofile,obj_nullmo
 						  Geno_rare_SPA <- Geno_rare[,is.rare_SPA,drop=FALSE]
 						  
 						  ## Split into small chunks to run
-						  subset_variants_num_SPA <- 100
+						  subset_variants_num_SPA <- 50
 						  subset.num_SPA <- ceiling(sum(is.rare_SPA)/subset_variants_num_SPA)
 						  
 						  for(kk_SPA in 1:subset.num_SPA)
