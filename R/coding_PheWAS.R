@@ -351,7 +351,7 @@ coding_PheWAS <- function(chr,gene_name,genofile,obj_nullmodel_list,genes,
 	        colnames(results_plof)[(dim(results_plof)[2]-1):dim(results_plof)[2]] <- c("ACAT-O","STAAR-O")
 	      }else
 	      {
-	        colnames(results_plof) <- colnames(results_plof_ds, do.NULL = FALSE, prefix = "col")
+	        colnames(results_plof) <- colnames(results_plof, do.NULL = FALSE, prefix = "col")
 	        colnames(results_plof)[1:5] <- c("Gene name","Chr","Category","#SNV","cMAC")
 	        colnames(results_plof)[dim(results_plof)[2]] <- c("STAAR-B")
 	      }
