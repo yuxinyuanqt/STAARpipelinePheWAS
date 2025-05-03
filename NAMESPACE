@@ -10,5 +10,4 @@ export(Individual_Analysis_PheWAS,
        Gene_Centric_Noncoding_PheWAS,
        ncRNA_PheWAS,
        Sliding_Window_PheWAS,
-	   Missing_num.sp,MultiSTAAR_sp,
-	   Genotype_sp_extraction)
+       Missing_num.sp)

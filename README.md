@@ -18,7 +18,7 @@ Please see the <a href="docs/STAARpipelinePheWAS_manual.pdf">**STAARpipelinePheW
 ## Data Availability
 The whole-genome functional annotation data assembled from a variety of sources and the precomputed annotation principal components are available at the [Functional Annotation of Variant - Online Resource (FAVOR)](https://favor.genohub.org) site and [FAVOR Essential Database](https://doi.org/10.7910/DVN/1VGTJI).
 ## Version
-The current version is 0.9.7.1 (March 24, 2025).
+The current version is 0.9.7.1 (April 23, 2025).
 ## Citation
 If you use **STAARpipelinePheWAS** for your work, please cite:
 

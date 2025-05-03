@@ -83,17 +83,11 @@ Individual_Analysis_PheWAS <- function(chr,start_loc,end_loc,genofile,obj_nullmo
 	REF_AC <- AF_AC_Missing$ac
 	Missing_rate <- AF_AC_Missing$miss
 	ALT_AC <- 2*round(length(phenotype.id)*(1-Missing_rate))-REF_AC
-	ALT_AC <- ifelse(ALT_AC<0,0,ALT_AC)
 	MAC <- ifelse(REF_AC>=ALT_AC,ALT_AC,REF_AC)
 	
 	is.include <- !((MAC<mac_cutoff) | is.na(MAC))
 	SNV.id <- SNV.id[is.include]
 	REF_AF <- REF_AF[is.include]
-	ALT_AF <- 1-REF_AF
-	MAF <- ifelse(REF_AF>=ALT_AF,ALT_AF,REF_AF)
-	REF_AC <- REF_AC[is.include]
-	ALT_AC <- ALT_AC[is.include]
-	MAC <- MAC[is.include]
 	Missing_rate <- Missing_rate[is.include]
 	rm(AF_AC_Missing,is.include)
 	gc()
